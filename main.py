@@ -1,9 +1,11 @@
 import tweepy
 from textblob import TextBlob
+import json
 
-def main():
-    print("Analysing 'Hello! I am a meatball!'")
-    t = TextBlob('Hello I am a meatball!')
-    print(t.sentiment)
+def setup():
+    with open("keys.json") as f:
+        stuff = json.load(f)
+    auth = tweepy.OAuthHandler(stuff["key"], stuff["secret"])
+    auth.set_access_token(stuff["access token"], stuff["access token secret"])
+    return tweepy.API(auth)
 
-main()
